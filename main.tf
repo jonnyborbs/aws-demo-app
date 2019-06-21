@@ -167,7 +167,7 @@ resource "aws_instance" "web" {
 #      "sudo apt-get -y update",
 #      "sudo apt-get -y install nginx",
 #      "sudo service nginx start",
-      "apt install nginx curl git -y",
+      "sudo apt install nginx curl git -y",
       "/usr/bin/git clone https://github.com/codyde/cas-demo-application /tmp/cas-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
       "/bin/rm -rf /usr/share/nginx/html/",
@@ -179,8 +179,8 @@ resource "aws_instance" "web" {
       "/usr/bin/ng build --prod",
       "/bin/cp -R /tmp/cas-demo-application/dist/cmbu-demo-application/ /usr/share/nginx/html/",
       "/bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
-      "/bin/systemctl restart nginx",
-      "ufw allow http",
+      "sudo /bin/systemctl restart nginx",
+      "sudo ufw allow http",
     ]
   }
 }
