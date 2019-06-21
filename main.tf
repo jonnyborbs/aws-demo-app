@@ -167,21 +167,20 @@ resource "aws_instance" "web" {
 #      "sudo apt-get -y update",
 #      "sudo apt-get -y install nginx",
 #      "sudo service nginx start",
-      "sudo su -",
       "apt install nginx curl git -y",
       "/usr/bin/git clone https://github.com/codyde/cas-demo-application /tmp/cas-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
       "/bin/rm -rf /usr/share/nginx/html/",
       "/usr/bin/curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -",
       "/usr/bin/apt install nodejs -y",
-      "/usr/bin/npm install -g @angular/cli@7.3.9",
+      "/usr/bin/npx @angular/cli analytics off"
+      "/usr/bin/npm install -g @angular/cli",
       "cd /tmp/cas-demo-application &&  /usr/bin/npm install",
       "/usr/bin/ng build --prod",
       "/bin/cp -R /tmp/cas-demo-application/dist/cmbu-demo-application/ /usr/share/nginx/html/",
       "/bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
       "/bin/systemctl restart nginx",
       "ufw allow http",
-      "exit",
     ]
   }
 }
