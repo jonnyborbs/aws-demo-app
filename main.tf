@@ -181,6 +181,7 @@ resource "aws_instance" "web" {
       "/bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
       "/bin/systemctl restart nginx",
       "ufw allow http",
+      "exit",
     ]
   }
 }
