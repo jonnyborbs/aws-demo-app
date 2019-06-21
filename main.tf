@@ -164,9 +164,9 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get -y update",
-      "sudo apt-get -y install nginx",
-      "sudo service nginx start",
+#      "sudo apt-get -y update",
+#      "sudo apt-get -y install nginx",
+#      "sudo service nginx start",
     ]
   }
 }
