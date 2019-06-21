@@ -168,7 +168,7 @@ resource "aws_instance" "web" {
 #      "sudo apt-get -y install nginx",
 #      "sudo service nginx start",
       "sudo apt install nginx curl git -y",
-      "sudo /usr/bin/git clone https://github.com/codyde/cas-demo-application /tmp/cas-demo-application",
+      "/usr/bin/git clone https://github.com/codyde/cas-demo-application /tmp/cas-demo-application",
       "sudo /bin/rm -rf /etc/nginx/conf.d/",
       "sudo /bin/rm -rf /usr/share/nginx/html/",
       "sudo /usr/bin/curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -",
