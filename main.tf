@@ -173,7 +173,7 @@ resource "aws_instance" "web" {
       "/bin/rm -rf /usr/share/nginx/html/",
       "/usr/bin/curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -",
       "/usr/bin/apt install nodejs -y",
-      "/usr/bin/npx @angular/cli analytics off"
+      "/usr/bin/npx @angular/cli analytics off",
       "/usr/bin/npm install -g @angular/cli",
       "cd /tmp/cas-demo-application &&  /usr/bin/npm install",
       "/usr/bin/ng build --prod",
