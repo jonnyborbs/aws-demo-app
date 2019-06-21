@@ -178,7 +178,7 @@ resource "aws_instance" "web" {
       "cd /tmp/cas-demo-application && /usr/bin/npm install",
       "/usr/bin/ng build --prod",
       "/bin/cp -R /tmp/cas-demo-application/dist/cmbu-demo-application/ /usr/share/nginx/html/",
-      "/bin/sed -i "s@root /var/www/html@root /usr/share/nginx/html@" /etc/nginx/sites-available/default",
+      "/bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
       "/bin/systemctl restart nginx",
       "ufw allow http",
     ]
