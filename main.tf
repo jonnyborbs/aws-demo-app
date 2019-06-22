@@ -164,9 +164,6 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-#      "sudo apt-get -y update",
-#      "sudo apt-get -y install nginx",
-#      "sudo service nginx start",
       "sudo apt install nginx curl git -y",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
@@ -175,7 +172,7 @@ resource "aws_instance" "web" {
       "sudo /usr/bin/apt install nodejs -y",
       "/usr/bin/npx @angular/cli analytics off",
       "sudo /usr/bin/npm install -g @angular/cli",
-      "cd /tmp/cas-demo-application &&  /usr/bin/npm install",
+      "cd /tmp/tf-demo-application &&  /usr/bin/npm install",
       "/usr/bin/ng build --prod",
       "sudo /bin/cp -R /tmp/tf-demo-application/dist/cmbu-demo-application/* /usr/share/nginx/html/",
       "sudo /bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
