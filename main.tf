@@ -183,4 +183,5 @@ resource "aws_instance" "web" {
   tags = {
     AppName = "TFDemoApp"
     CostCenter = "TFE-PM-000"
+  }
 }
