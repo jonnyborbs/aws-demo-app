@@ -191,4 +191,5 @@ module "mysql" {
     source = "StayWell/mysql/aws"
     version = "0.1.1"
     subnet_ids =  "${aws_subnet.default.id}"
+    availability_zones = "${var.availability_zones}"
 }
