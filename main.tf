@@ -186,3 +186,9 @@ resource "aws_instance" "web" {
     CostCenter = "TFE-PM-000"
   }
 }
+
+module "mysql" {
+    source = "StayWell/mysql/aws"
+    version = "0.1.1"
+    subnet_ids =  "${aws_subnet.default.id}"
+}
