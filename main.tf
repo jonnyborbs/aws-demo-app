@@ -44,7 +44,7 @@ resource "aws_subnet" "default" {
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
   name        = "terraform_example_elb"
-  description = "Used in the terraform"
+  description = "Created by Terraform"
   vpc_id      = "${aws_vpc.default.id}"
 
   # HTTP access from anywhere
@@ -68,7 +68,7 @@ resource "aws_security_group" "elb" {
 # the instances over SSH and HTTP
 resource "aws_security_group" "default" {
   name        = "terraform_example"
-  description = "Used in the terraform"
+  description = "Created by Terraform"
   vpc_id      = "${aws_vpc.default.id}"
 
   # SSH access from anywhere
