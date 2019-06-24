@@ -180,4 +180,8 @@ resource "aws_instance" "web" {
       "sudo ufw allow http",
     ]
   }
+  tags = {
+    AppName = "TFDemoApp"
+    AppOwner = "Jon"
+    CostCenter = "TFE-PM-000"
 }
