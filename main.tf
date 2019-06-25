@@ -134,7 +134,6 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "web" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
-  id  = "terraform-demo-app"
   connection {
     # The default username for our AMI
     type = "ssh"
