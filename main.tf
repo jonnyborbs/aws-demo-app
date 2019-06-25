@@ -165,8 +165,8 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo apt install nginx curl git -y",
-      "sudo apt install awscli -y",
+      "sudo apt install nginx curl git python3-pip -y",
+      "/usr/bin/pip3 install awscli --upgrade --user",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
       "/bin/rm -rf /usr/share/nginx/html/",
@@ -180,7 +180,7 @@ resource "aws_instance" "web" {
       "sudo /bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
       "sudo /bin/systemctl restart nginx",
       "sudo ufw allow http",
-      "aws sns publish --target-arn ${var.slack_topic_name} --region us-east-1 --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
+      "~/.local/bin/aws sns publish --target-arn ${var.slack_topic_name} --region us-east-1 --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
     ]
   }
   tags = {
