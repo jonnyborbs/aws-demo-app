@@ -194,6 +194,6 @@ module "notify_slack" {
   sns_topic_name = "slack-topic"
 
   slack_webhook_url = "https://hooks.slack.com/services/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"
-  slack_channel     = "jms-notifications"
+  slack_channel     = "#jms-notifications"
   slack_username    = "Lambda Slack Notifier"
 }
