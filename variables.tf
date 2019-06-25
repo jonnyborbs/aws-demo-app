@@ -18,5 +18,5 @@ variable "aws_region" {
 
 variable "availability_zones" {
   description = "AZ to run RDS"
-  default     = "us-east-1a"
+  default     = "us-east-1a, us-east-1b"
 }
