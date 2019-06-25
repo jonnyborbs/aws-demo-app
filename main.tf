@@ -164,7 +164,8 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo apt install nginx curl git -y",
+      "sudo apt install nginx curl git python3-pip -y",
+      "sudo -H pip3 install awscli --upgrade --user",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
       "/bin/rm -rf /usr/share/nginx/html/",
@@ -183,14 +184,14 @@ resource "aws_instance" "web" {
   tags = {
     AppName = "TFDemoApp"
     AppOwner = "Jon"
-    CostCenter = "TFE-PM-000"
+    CostCenter = "TFEj-PM-000"
   }
 }
 
 module "notify-slack" {
   source  = "terraform-aws-modules/notify-slack/aws"
   version = "2.0.0"
-  sns_topic_name = "slack-topic"
+  sns_topic_name = "${var.slack_topic_name}"
   slack_webhook_url = "https://hooks.slack.com/services/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"
   slack_channel     = "jms-notifications"
   slack_username    = "jms-tfe-slack"
