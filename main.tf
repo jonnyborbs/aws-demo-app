@@ -165,8 +165,7 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "sudo apt install nginx curl git python3-pip -y",
-      "sudo -H pip3 install awscli --upgrade --user",
+      "sudo apt install nginx curl git awscli -y",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
       "/bin/rm -rf /usr/share/nginx/html/",
@@ -185,7 +184,7 @@ resource "aws_instance" "web" {
   tags = {
     AppName = "TFDemoApp"
     AppOwner = "Jon"
-    CostCenter = "TFEj-PM-000"
+    CostCenter = "TFE-PM-000"
   }
 }
 
