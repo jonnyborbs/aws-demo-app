@@ -186,3 +186,14 @@ resource "aws_instance" "web" {
     CostCenter = "TFE-PM-000"
   }
 }
+
+module "notify_slack" {
+  source  = "terraform-aws-modules/notify-slack/aws"
+  version = "~> 2.0"
+
+  sns_topic_name = "slack-topic"
+
+  slack_webhook_url = "https://hooks.slack.com/services/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"
+  slack_channel     = "jms-notifications"
+  slack_username    = "Lambda Slack Notifier"
+}
