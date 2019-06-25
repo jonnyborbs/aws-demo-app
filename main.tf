@@ -43,7 +43,7 @@ resource "aws_subnet" "default" {
 
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
-  name        = "terraform_example_elb"
+  name        = "terraform_demo_app_elb"
   description = "Created by Terraform"
   vpc_id      = "${aws_vpc.default.id}"
 
@@ -67,7 +67,7 @@ resource "aws_security_group" "elb" {
 # Our default security group to access
 # the instances over SSH and HTTP
 resource "aws_security_group" "default" {
-  name        = "terraform_example"
+  name        = "terraform_demo_app_asg"
   description = "Created by Terraform"
   vpc_id      = "${aws_vpc.default.id}"
 
@@ -97,7 +97,7 @@ resource "aws_security_group" "default" {
 }
 
 resource "aws_elb" "web" {
-  name = "terraform-example-elb"
+  name = "terraform-demo-app"
 
   subnets         = ["${aws_subnet.default.id}"]
   security_groups = ["${aws_security_group.elb.id}"]
@@ -134,6 +134,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "web" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
+  name  = "terraform-demo-app"
   connection {
     # The default username for our AMI
     type = "ssh"
@@ -150,7 +151,7 @@ resource "aws_instance" "web" {
   ami = "${data.aws_ami.ubuntu.id}"
 
   # The name of our SSH keypair we created above.
-  key_name = "${var.key_name}"
+  key_name = "${var.key_pair_name}"
 
   # Our Security group to allow HTTP and SSH access
   vpc_security_group_ids = ["${aws_security_group.default.id}"]
@@ -181,7 +182,7 @@ resource "aws_instance" "web" {
       "sudo ufw allow http",
       "sudo apt install python3-pip -y",
       "/usr/bin/pip3 install awscli --upgrade --user",
-      "~/.local/bin/aws sns publish --target-arn ${module.notify-slack.this_slack_topic_arn} --region us-east-1 --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
+      "~/.local/bin/aws sns publish --target-arn ${module.notify-slack.this_slack_topic_arn} --region ${var.aws_region} --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
     ]
   }
   tags = {
@@ -195,7 +196,7 @@ module "notify-slack" {
   source  = "terraform-aws-modules/notify-slack/aws"
   version = "2.0.0"
   sns_topic_name = "${var.slack_topic_name}"
-  slack_webhook_url = "https://hooks.slack.com/services/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"
+  slack_webhook_url = "${var.slack_webhook_url}"
   slack_channel     = "jms-notifications"
   slack_username    = "jms-tfe-slack"
 }
