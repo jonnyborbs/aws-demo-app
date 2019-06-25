@@ -180,7 +180,7 @@ resource "aws_instance" "web" {
       "sudo /bin/sed -i \"s@root /var/www/html@root /usr/share/nginx/html@\" /etc/nginx/sites-available/default",
       "sudo /bin/systemctl restart nginx",
       "sudo ufw allow http",
-      "aws sns publish --target-arn ${var.slack_topic_name} --region us-east-1 --message "server provisioned at ip ${aws_instance.web.public_ip}"",
+      "aws sns publish --target-arn ${var.slack_topic_name} --region us-east-1 --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
     ]
   }
   tags = {
