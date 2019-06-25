@@ -3,5 +3,5 @@ output "address" {
 }
 
 output "slack-arn" {
-  value = "${module.notify_slack.this_slack_topic_arn}"
+  value = "${module.notify-slack.this_slack_topic_arn}"
 }
