@@ -5,7 +5,7 @@ terraform {
     organization = "jschulman"
 
     workspaces {
-      name = "vcs-two-tier"
+      name = "tfe-demo-app"
 
     }
   }
@@ -192,7 +192,7 @@ resource "aws_instance" "web" {
 }
 
 module "notify-slack" {
-  source  = "terraform-aws-modules/notify-slack/aws"
+  source  = "app.terraform.io/jschulman/notify-slack/aws"
   version = "2.0.0"
   sns_topic_name = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
