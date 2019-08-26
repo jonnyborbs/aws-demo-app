@@ -182,6 +182,7 @@ resource "aws_instance" "web" {
   }
   tags = {
     #AppName = "TFDemoApp"
+    #comment
     AppOwner = "Jon"
     CostCenter = "TFE-PM-0001"
   }
