@@ -181,7 +181,7 @@ resource "aws_instance" "web" {
     ]
   }
   tags = {
-    AppName = "TFDemoApp"
+    #AppName = "TFDemoApp"
     AppOwner = "Jon"
     CostCenter = "TFE-PM-0001"
   }
