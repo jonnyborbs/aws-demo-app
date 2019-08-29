@@ -161,6 +161,7 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
+      "sudo apt-get update",
       "sudo apt install nginx curl git -y",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
       "/bin/rm -rf /etc/nginx/conf.d/",
