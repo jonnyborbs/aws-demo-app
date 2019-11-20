@@ -1,6 +1,6 @@
 variable "key_pair_name" {
   description = "The name of the AWS Key Pair"
-  default     = "JS-KeyPair"
+  default     = "JS-KeyPair-Hashi"
 }
 
 variable "private_key" {
