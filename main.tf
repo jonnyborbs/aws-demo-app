@@ -185,6 +185,7 @@ resource "aws_instance" "web" {
     AppName = "TFDemoApp"
     AppOwner = "Jon"
     CostCenter = "TFE-PM-0001"
+    Provider = "AWS"
     Name = "Clarity TF Demo App"
   }
 }
