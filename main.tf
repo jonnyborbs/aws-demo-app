@@ -186,6 +186,7 @@ resource "aws_instance" "web" {
     AppOwner = "Jon"
     CostCenter = "TFE-PM-0001"
     Name = "Clarity TF Demo App"
+    DemoTag = "Yes"
   }
 }
 
