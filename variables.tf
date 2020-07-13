@@ -23,3 +23,7 @@ variable "slack_topic_name" {
 variable "slack_webhook_url" {
   description = "Slack webhook URL"
 }
+
+variable "ami_ids" {
+  description = "Map of AMI IDs for each region"
+}
