@@ -6,6 +6,7 @@ variable "key_pair_name" {
 variable "private_key" {
   description = "Private Key"
 }
+
 variable "public_key" {
   description = "Public Key"
 }
