@@ -9,4 +9,3 @@ This demo template will:
 - Provision a simple Ubuntu EC2 instance (using AMI filtering) which leverages a preexisting keypair, remote-exec provisioners and the awscli to send SNS notifications which are ultimately routed to Slack
 - Install and configure a compiled Angular/Clarity based demo application
 - Provision a load balancer in front of the EC2 instance and return the URL
-- Time to test the donuts
