@@ -12,3 +12,4 @@ This demo template will:
 - Install and configure a compiled Angular/Clarity based demo application
 - Provision a load balancer in front of the EC2 instance and return the URL
 - Notify Slack with the instance IP and hostname
+- And add some emojuseses 😀💜
