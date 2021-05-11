@@ -9,11 +9,17 @@ terraform {
 
     }
   }
+  # Set up provider requirements
+  required_providers {
+    aws = {
+      source  = "registry.terraform.io/hashicorp/aws"
+      version = "~> 2.0"
+    }
+  }
 }
 
-# Specify the provider and access details
+# Specify the provider and region details
 provider "aws" {
-  version = "~> 2.0"
   region = "${var.aws_region}"
 }
 
