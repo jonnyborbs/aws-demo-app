@@ -14,3 +14,4 @@ This demo template will:
 - Notify Slack with the instance IP and hostname
 - And add some emojuseses 😀💜
 - Directly editing to test check status
+- And push a change to check new token formats
