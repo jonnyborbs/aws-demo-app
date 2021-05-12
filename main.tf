@@ -198,7 +198,6 @@ resource "aws_instance" "web" {
 module "notify-slack" {
   source  = "app.terraform.io/jschulman/notify-slack/aws"
   version = "4.14.0"
-  create_sns_topic = false
   sns_topic_name = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
   slack_channel     = "jms-notifications"
