@@ -9,11 +9,17 @@ terraform {
 
     }
   }
+  # Set up provider requirements
+  required_providers {
+    aws = {
+      source  = "registry.terraform.io/hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
 }
 
-# Specify the provider and access details
+# Specify the provider and region details
 provider "aws" {
-  version = "~> 2.0"
   region = "${var.aws_region}"
 }
 
@@ -191,7 +197,7 @@ resource "aws_instance" "web" {
 
 module "notify-slack" {
   source  = "app.terraform.io/jschulman/notify-slack/aws"
-  version = "2.0.0"
+  version = "4.14.0"
   sns_topic_name = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
   slack_channel     = "jms-notifications"
