@@ -1,7 +1,7 @@
 #init the backend
 terraform {
   backend "remote" {
-    hostname = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "jschulman"
 
     workspaces {
@@ -12,7 +12,7 @@ terraform {
   # Set up provider requirements
   required_providers {
     aws = {
-      source  = "registry.terraform.io/hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
@@ -118,19 +118,19 @@ resource "aws_elb" "web" {
 }
 
 data "aws_ami" "ubuntu" {
-    most_recent = true
+  most_recent = true
 
-    filter {
-        name = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-    }
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+  }
 
-    filter {
-        name = "virtualization-type"
-        values = ["hvm"]
-    }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 
-    owners = ["099720109477"]
+  owners = ["099720109477"]
 }
 
 resource "aws_instance" "web" {
@@ -138,13 +138,13 @@ resource "aws_instance" "web" {
   # communicate with the resource (instance)
   connection {
     # The default username for our AMI
-    type = "ssh"
-    user = "ubuntu"
-    host = self.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    host        = self.public_ip
     private_key = var.private_key
   }
 
-  instance_type = "t2.micro"
+  instance_type        = "t2.micro"
   iam_instance_profile = "EC2AccessSNS"
 
   # Lookup the correct AMI based on the region
@@ -188,17 +188,17 @@ resource "aws_instance" "web" {
     ]
   }
   tags = {
-    AppName = "TFDemoApp"
-    AppOwner = "Jon"
+    AppName    = "TFDemoApp"
+    AppOwner   = "Jon"
     CostCenter = "TFE-PM-0001"
-    Name = "Clarity TF Demo App"
+    Name       = "Clarity TF Demo App"
   }
 }
 
 module "notify-slack" {
-  source  = "app.terraform.io/jschulman/notify-slack/aws"
-  version = "4.14.0"
-  sns_topic_name = "${var.slack_topic_name}"
+  source            = "app.terraform.io/jschulman/notify-slack/aws"
+  version           = "4.14.0"
+  sns_topic_name    = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
   slack_channel     = "jms-notifications"
   slack_username    = "jms-tfe-slack"
