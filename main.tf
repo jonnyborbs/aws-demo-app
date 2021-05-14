@@ -51,7 +51,7 @@ resource "aws_subnet" "js-demo-subnet" {
 resource "aws_security_group" "elb" {
   name        = "terraform_demo_app_elb"
   description = "Created by Terraform"
-  vpc_id      = "${aws_vpc.js-vpc.id}"
+  vpc_id      = "${aws_vpc.js-demo-vpc.id}"
 
   # HTTP access from anywhere
   ingress {
