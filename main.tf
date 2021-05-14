@@ -185,6 +185,9 @@ resource "aws_instance" "web" {
       "sudo ufw allow http",
       "sudo apt install python3-pip -y",
       "/usr/bin/pip3 install awscli --upgrade --user",
+      "echo ${module.notify-slack.this_slack_topic_arn}",
+      "echo ${var.aws_region}",
+      "echo ${aws_instance.web.public_ip}",
       "~/.local/bin/aws sns publish --target-arn ${module.notify-slack.this_slack_topic_arn} --region ${var.aws_region} --message \"server provisioned at ip ${aws_instance.web.public_ip}\"",
     ]
   }
