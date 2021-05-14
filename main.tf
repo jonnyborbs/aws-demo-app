@@ -167,7 +167,7 @@ resource "aws_instance" "web" {
   # this should be on port 80
   provisioner "remote-exec" {
     inline = [
-      "export NG_CLI_ANALYTICS=ci",
+      "sudo export NG_CLI_ANALYTICS=ci",
       "sudo apt-get update",
       "sudo apt install nginx curl git -y",
       "/usr/bin/git clone https://github.com/vaficionado/tf-demo-application /tmp/tf-demo-application",
