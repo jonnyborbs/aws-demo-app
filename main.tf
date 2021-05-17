@@ -202,7 +202,7 @@ resource "aws_instance" "web" {
 }
 
 module "notify-slack" {
-  source            = "app.terraform.io/jschulman-demo/notify-slack/aws"
+  source            = "app.terraform.io/jschulman-test/notify-slack/aws"
   version           = "4.14.0"
   sns_topic_name    = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
