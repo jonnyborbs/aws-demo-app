@@ -1,7 +1,7 @@
-# AWS based Terraform Cloud Demo App
+# AWS based ✨Terraform Cloud Demo App✨
 ![readmes rule](https://www.datocms-assets.com/2885/1620155113-brandhcterraformprimaryattributedcolor.svg)
 
-This 💜demo template💜 will:
+This demo template will:
 - Create a VPC
 - Create a subnet
 - Create an internet gateway
