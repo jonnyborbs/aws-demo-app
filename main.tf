@@ -133,6 +133,11 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
+resource "aws_iam_instance_profile" "sns_profile" {
+  name = "EC2AccessSNS"
+  role = "ec2accesssns"
+}
+
 resource "aws_instance" "web" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
@@ -145,7 +150,7 @@ resource "aws_instance" "web" {
   }
 
   instance_type        = "t2.micro"
-  iam_instance_profile = "EC2AccessSNS"
+  iam_instance_profile = aws_iam_instance_profile.sns_profile.name
 
   # Lookup the correct AMI based on the region
   # we specified
