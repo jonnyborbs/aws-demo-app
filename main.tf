@@ -2,10 +2,10 @@
 terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "jschulman"
+    organization = "kulpree"
 
     workspaces {
-      name = "tfe-demo-app"
+      name = "terraform-cloud_demo"
 
     }
   }
@@ -24,25 +24,25 @@ provider "aws" {
 }
 
 # Create a VPC to launch our instances into
-resource "aws_vpc" "js-vpc" {
+resource "aws_vpc" "kp-vpc" {
   cidr_block = "10.0.0.0/16"
 }
 
 # Create an internet gateway to give our subnet access to the outside world
-resource "aws_internet_gateway" "js-ig" {
-  vpc_id = "${aws_vpc.js-vpc.id}"
+resource "aws_internet_gateway" "kp-ig" {
+  vpc_id = "${aws_vpc.kp-vpc.id}"
 }
 
 # Grant the VPC internet access on its main route table
 resource "aws_route" "internet_access" {
-  route_table_id         = "${aws_vpc.js-vpc.main_route_table_id}"
+  route_table_id         = "${aws_vpc.kp-vpc.main_route_table_id}"
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.js-ig.id}"
+  gateway_id             = "${aws_internet_gateway.kp-ig.id}"
 }
 
 # Create a subnet to launch our instances into
-resource "aws_subnet" "js-subnet" {
-  vpc_id                  = "${aws_vpc.js-vpc.id}"
+resource "aws_subnet" "kp-subnet" {
+  vpc_id                  = "${aws_vpc.kp-vpc.id}"
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
 }
@@ -51,7 +51,7 @@ resource "aws_subnet" "js-subnet" {
 resource "aws_security_group" "elb" {
   name        = "terraform_demo_app_elb"
   description = "Created by Terraform"
-  vpc_id      = "${aws_vpc.js-vpc.id}"
+  vpc_id      = "${aws_vpc.kp-vpc.id}"
 
   # HTTP access from anywhere
   ingress {
@@ -72,10 +72,10 @@ resource "aws_security_group" "elb" {
 
 # Our default security group to access
 # the instances over SSH and HTTP
-resource "aws_security_group" "js-sg" {
+resource "aws_security_group" "kp-sg" {
   name        = "terraform_demo_app_asg"
   description = "Created by Terraform"
-  vpc_id      = "${aws_vpc.js-vpc.id}"
+  vpc_id      = "${aws_vpc.kp-vpc.id}"
 
   # SSH access from anywhere
   ingress {
@@ -105,7 +105,7 @@ resource "aws_security_group" "js-sg" {
 resource "aws_elb" "web" {
   name = "terraform-demo-app"
 
-  subnets         = ["${aws_subnet.js-subnet.id}"]
+  subnets         = ["${aws_subnet.kp-subnet.id}"]
   security_groups = ["${aws_security_group.elb.id}"]
   instances       = ["${aws_instance.web.id}"]
 
@@ -141,7 +141,7 @@ resource "aws_instance" "web" {
     type        = "ssh"
     user        = "ubuntu"
     host        = self.public_ip
-    private_key = var.private_key
+    // private_key = var.private_key
   }
 
   instance_type        = "t2.micro"
@@ -155,12 +155,12 @@ resource "aws_instance" "web" {
   key_name = "${var.key_pair_name}"
 
   # Our Security group to allow HTTP and SSH access
-  vpc_security_group_ids = ["${aws_security_group.js-sg.id}"]
+  vpc_security_group_ids = ["${aws_security_group.kp-sg.id}"]
 
   # We're going to launch into the same subnet as our ELB. In a production
   # environment it's more common to have a separate private subnet for
   # backend instances.
-  subnet_id = "${aws_subnet.js-subnet.id}"
+  subnet_id = "${aws_subnet.kp-subnet.id}"
 
   # We run a remote provisioner on the instance after creating it.
   # In this case, we just install nginx and start it. By default,
@@ -190,17 +190,17 @@ resource "aws_instance" "web" {
   }
   tags = {
     AppName    = "TFDemoApp"
-    AppOwner   = "Jon"
+    AppOwner   = "kulpree"
     CostCenter = "TFE-PM-0001"
     Name       = "Clarity TF Demo App"
   }
 }
 
 module "notify-slack" {
-  source            = "app.terraform.io/jschulman/notify-slack/aws"
+  source            = "terraform-aws-modules/notify-slack/aws"
   version           = "4.14.0"
   sns_topic_name    = "${var.slack_topic_name}"
   slack_webhook_url = "${var.slack_webhook_url}"
-  slack_channel     = "jms-notifications"
-  slack_username    = "jms-tfe-slack"
+  slack_channel     = "#testing"
+  slack_username    = "kp-tfe-slack"
 }

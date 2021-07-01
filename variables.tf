@@ -1,15 +1,15 @@
 variable "key_pair_name" {
   description = "The name of the AWS Key Pair"
-  default     = "JS-KeyPair-Hashi"
+  default     = "kp_tfe_keypair"
 }
 
-variable "private_key" {
-  description = "Private Key"
-}
+// variable "private_key" {
+//   description = "Private Key"
+// }
 
-variable "public_key" {
-  description = "Public Key"
-}
+// variable "public_key" {
+//   description = "Public Key"
+// }
 
 variable "aws_region" {
   description = "AWS region to launch servers."
@@ -25,6 +25,6 @@ variable "slack_webhook_url" {
   description = "Slack webhook URL"
 }
 
-variable "ami_ids" {
-  description = "Map of AMI IDs for each region"
-}
+// variable "ami_ids" {
+//   description = "Map of AMI IDs for each region"
+// }
