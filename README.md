@@ -13,3 +13,4 @@ This demo template will:
 - Provision a load balancer in front of the EC2 instance and return the URL
 - Notify Slack with the instance IP and hostname
 - And add some emojuseses 😀💜
+- Test commit
